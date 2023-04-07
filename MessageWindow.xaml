@@ -1,0 +1,55 @@
+﻿<Window x:Class="Onset_Serialization.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Onset_Serialization"
+        mc:Ignorable="d" Height="Auto" Width="Auto" MinWidth="400" Foreground="Black" WindowStyle="None" WindowStartupLocation="CenterOwner" MaxWidth="600" ResizeMode="CanResize" SizeToContent="WidthAndHeight" AllowsTransparency="True" Background="Transparent" MouseDown="Window_MouseDown" Title="Message">
+    <Border BorderBrush="Black" BorderThickness="3" Background="White" Padding="10" CornerRadius="10">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Image Grid.Column="1" Source="/Images/spartronics.png" Width="150" HorizontalAlignment="Center" />
+
+                <TextBlock Grid.Column="2" x:Name="txtClose" Text="&#10008;" FontSize="18pt" VerticalAlignment="Top" ToolTip="Close" Margin="0,-10,0,0" MouseDown="txtClose_MouseDown">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Red" />
+                            <Style.Triggers>
+                                <Trigger Property="TextBlock.IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="DarkGray" />
+                                    <Setter Property="Cursor" Value="Hand" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <Image x:Name="imgIcon" Source="/Images/envelope-icon.png" Width="100" Height="50" />
+            <TextBlock Grid.Column="1" x:Name="txtTitle" Text="Title" HorizontalAlignment="Center" TextAlignment="Justify" FontSize="26pt" TextWrapping="Wrap" />
+            <TextBlock x:Name="txtMessage" Text="Message" FontSize="14pt" Foreground="DarkGray" Margin="0,10,0,10" HorizontalAlignment="Center" TextAlignment="Justify" TextWrapping="Wrap" />
+            <Grid x:Name="gridConfirm" Visibility="Collapsed">
+                <telerik:RadButton x:Name="btnOK" Content="OK" Background="DodgerBlue" CornerRadius="10" Cursor="Hand" Width="150" Height="35" IsDefault="True" IsCancel="True" />
+            </Grid>
+            <Grid x:Name="gridYesNo" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <telerik:RadButton Grid.Column="0" x:Name="btnNo" Content="NO" Background="Red" CornerRadius="10" Cursor="Hand" Width="150" Height="35" IsCancel="True" />
+
+                <telerik:RadButton Grid.Column="1" x:Name="btnYes" Content="YES" Background="ForestGreen" CornerRadius="10" Cursor="Hand" Width="150" Height="35" IsDefault="True" Click="btnYes_Click" />
+
+            </Grid>
+
+        </StackPanel>
+    </Border>
+</Window>

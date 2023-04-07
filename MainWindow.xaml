@@ -1,0 +1,137 @@
+﻿<Window x:Class="Onset_Serialization.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Onset_Serialization"
+        xmlns:uc="clr-namespace:Onset_Serialization.UserControls"
+        mc:Ignorable="d" WindowStyle="None" Loaded="Window_Loaded" Closing="Window_Closing" SizeChanged="Window_SizeChanged"
+        MaxHeight="{x:Static SystemParameters.MaximizedPrimaryScreenHeight}"
+        Title="MainWindow" Height="450" Width="800" MinWidth="350" MinHeight="150" Icon="/app-icon.ico">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+            <Setter Property="FontFamily" Value="Arial" />
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <uc:ucWindowTitleBar DockPanel.Dock="Top" />
+        <telerik:RadNavigationView x:Name="navMenu" telerik:StyleManager.Theme="Crystal" DockPanel.Dock="Left" SubItemsIndentation="10" AutoChangeDisplayMode="False" CanKeyboardNavigationSelectItems="False">
+            <telerik:RadNavigationView.PaneHeader>
+                <TextBlock Text="ONSET COMPUTER" FontSize="16" FontWeight="Bold" >
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="Black"/>
+                            <GradientStop Color="#FF0285E9" Offset="1"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
+            </telerik:RadNavigationView.PaneHeader>
+            <telerik:RadNavigationView.Items>
+                <telerik:RadNavigationViewItem x:Name="nviLogin" Content="Unlock" ToolTip="Mở khóa ứng dụng" Click="nviLogin_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe114;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <!-- Command Parameter is used for name of page class -->
+                <telerik:RadNavigationViewItem Content="Engineering" ToolTip="Cài đặt kỹ thuật">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe600;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Items>
+                        <telerik:RadNavigationViewItem Content="Serial Generator" ToolTip="Tạo serial number" CommandParameter="SerialGeneratorPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe12e;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Package Generator" ToolTip="Tạo package" CommandParameter="PackageGeneratorPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe12e;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Work Order" ToolTip="Tạo Work Order" CommandParameter="ProductionOrderPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe513;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Component Replacement" ToolTip="Thay PCBA" CommandParameter="ComponentReworkPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe50b;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                    </telerik:RadNavigationViewItem.Items>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Initialize" ToolTip="Khởi tạo số" CommandParameter="SerialInitialPage" Click="navItemToPage_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe526;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Pack Product" ToolTip="Trạm đóng hộp" CommandParameter="ProductPackingPage" Click="navItemToPage_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe802;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Box Packing" ToolTip="Trạm đóng thùng" CommandParameter="BoxPackingPage" Click="navItemToPage_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe66f;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Record" ToolTip="Dữ liệu tổng">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe63e;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Items>
+                        <telerik:RadNavigationViewItem Content="Route Data" ToolTip="Dữ liệu trạm" CommandParameter="LogRoutingPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe68f;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Component Data" ToolTip="Dữ liệu bo" CommandParameter="LogComponentPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe68f;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Package Data" ToolTip="Dữ liệu đóng gói" CommandParameter="LogPackingPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe68f;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                    </telerik:RadNavigationViewItem.Items>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Settings" ToolTip="Cài đặt" CommandParameter="SettingsPage" Click="navItemToPage_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe13a;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="System Admin" ToolTip="Hệ thống quản trị">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe801;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                    <telerik:RadNavigationViewItem.Items>
+                    </telerik:RadNavigationViewItem.Items>
+                </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem x:Name="nviLogOut" Content="Log Out" ToolTip="Đăng xuất" Click="nviLogOut_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe131;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
+            </telerik:RadNavigationView.Items>
+            <telerik:RadNavigationView.Content>
+                <DockPanel>
+                    <Border DockPanel.Dock="Top" BorderBrush="#eeeeee" BorderThickness="3">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+                            <Image Source="/Images/onset.png" Height="40" Margin="10,0,20,0" />
+                            <TextBlock x:Name="tbWelcome" Text="Welcome" VerticalAlignment="Center" FontSize="12pt" FontWeight="Bold" Foreground="DarkSlateBlue" />
+                            <TextBlock Text="&#8227;" VerticalAlignment="Center" FontSize="12pt" FontWeight="Bold" Foreground="DarkSlateBlue" Margin="10,0,10,0" />
+                            <TextBlock x:Name="tbPage" Text="Home" VerticalAlignment="Center" FontSize="12pt" FontWeight="Bold" Foreground="DarkSlateBlue" />
+                            <telerik:RadGlyph x:Name="glRefersh" Glyph="&#xe103;" FontSize="20" Margin="10,0,0,0" Foreground="DarkBlue" Cursor="Hand" ToolTip="Refresh Form" MouseUp="glRefersh_MouseUp"/>
+                        </StackPanel>
+                    </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Frame x:Name="frameContent" NavigationUIVisibility="Hidden" Background="#F6123456"></Frame>
+                    </ScrollViewer>
+                </DockPanel>
+            </telerik:RadNavigationView.Content>
+        </telerik:RadNavigationView>
+    </DockPanel>
+</Window>

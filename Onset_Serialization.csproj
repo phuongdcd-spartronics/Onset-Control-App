@@ -1,0 +1,495 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{30A1CA36-28B5-409C-992B-A0B9D404A578}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Onset_Serialization</RootNamespace>
+    <AssemblyName>Onset Serialization</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>\\vtnfile\SPAVTN\TEMP\OBSOLETE\Freewares\OLD\Onset\Application\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <UpdateUrl>\\vtnfile\SPAVTN\TEMP\OBSOLETE\Freewares\OLD\Onset\Application\</UpdateUrl>
+    <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
+    <ApplicationRevision>21</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>062B42BA750A734BD3FD61D72BC087165B3C53DE</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Onset_Serialization_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Api\Models\UserData.cs" />
+    <Compile Include="Api\UserApi.cs" />
+    <Compile Include="AuthWindow.xaml.cs">
+      <DependentUpon>AuthWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Code2D\DataMatrixImage.cs" />
+    <Compile Include="Code2D\QRCodeImage.cs" />
+    <Compile Include="Data\AppAuthorization.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Authorization.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\History.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\OnsetModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnsetModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\OnsetModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\OnsetModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnsetModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Package.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PackageData.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\PrintLog.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Product.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ProductionOrder.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ProductLabel.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ProductRouter.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\RouterInput.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SerialComponent.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SerialData.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\SerialRouting.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\User.cs">
+      <DependentUpon>OnsetModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Enums\Station.cs" />
+    <Compile Include="Enums\Status.cs" />
+    <Compile Include="Labels\Carton_Label.xaml.cs">
+      <DependentUpon>Carton_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\CX405_Case_Label.xaml.cs">
+      <DependentUpon>CX405_Case_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\IPrintable.cs" />
+    <Compile Include="Labels\CX405_Box_Label.xaml.cs">
+      <DependentUpon>CX405_Box_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX2202_Box_Label.xaml.cs">
+      <DependentUpon>MX2202_Box_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX2201_Box_Label.xaml.cs">
+      <DependentUpon>MX2201_Box_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX401_Box_Label.xaml.cs">
+      <DependentUpon>MX401_Box_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX1101_Box_Label.xaml.cs">
+      <DependentUpon>MX1101_Box_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX401_Case_Label.xaml.cs">
+      <DependentUpon>MX401_Case_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX1101_Case_Label.xaml.cs">
+      <DependentUpon>MX1101_Case_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WorkerResultInfo.cs" />
+    <Compile Include="Models\ComponentInfo.cs" />
+    <Compile Include="Models\LabelInfo.cs" />
+    <Compile Include="Models\PrintLogInfo.cs" />
+    <Compile Include="Models\ScanDataInfo.cs" />
+    <Compile Include="Pages\BoxPackingPage.xaml.cs">
+      <DependentUpon>BoxPackingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ComponentReworkPage.xaml.cs">
+      <DependentUpon>ComponentReworkPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LogComponentPage.xaml.cs">
+      <DependentUpon>LogComponentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LogPackingPage.xaml.cs">
+      <DependentUpon>LogPackingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LogRoutingPage.xaml.cs">
+      <DependentUpon>LogRoutingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\PackageGeneratorPage.xaml.cs">
+      <DependentUpon>PackageGeneratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductionOrderPage.xaml.cs">
+      <DependentUpon>ProductionOrderPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductPackingPage.xaml.cs">
+      <DependentUpon>ProductPackingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SerialGeneratorPage.xaml.cs">
+      <DependentUpon>SerialGeneratorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SerialInitialPage.xaml.cs">
+      <DependentUpon>SerialInitialPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucGridLog.xaml.cs">
+      <DependentUpon>ucGridLog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ucWindowTitleBar.xaml.cs">
+      <DependentUpon>ucWindowTitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserSession.cs" />
+    <Compile Include="Utilities\AuthUtils.cs" />
+    <Compile Include="Utilities\CacheUtils.cs" />
+    <Compile Include="Utilities\JsonUtils.cs" />
+    <Compile Include="Utilities\PrintUtils.cs" />
+    <Compile Include="ViewModels\AuthViewModel.cs" />
+    <Compile Include="ViewModels\ComponentReworkViewModel.cs" />
+    <Compile Include="ViewModels\PackageGeneratorViewModel.cs" />
+    <Compile Include="ViewModels\ProductionOrderViewModel.cs" />
+    <Compile Include="ViewModels\ScanViewModel.cs" />
+    <Compile Include="ViewModels\SerialGeneratorViewModel.cs" />
+    <Page Include="AuthWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Labels\Carton_Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Labels\CX405_Case_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\CX405_Box_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX2202_Box_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX2201_Box_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX401_Box_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX1101_Box_Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Labels\MX401_Case_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX1101_Case_Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MessageWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\BoxPackingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ComponentReworkPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LogComponentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LogPackingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LogRoutingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\PackageGeneratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductionOrderPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductPackingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SerialGeneratorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SerialInitialPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ucGridLog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\ucWindowTitleBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="Data\OnsetModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnsetModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Data\OnsetModel.edmx.diagram">
+      <DependentUpon>OnsetModel.edmx</DependentUpon>
+    </None>
+    <None Include="Onset_Serialization_TemporaryKey.pfx" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\win-titlebar-bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="EPPlus">
+      <Version>6.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>4.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="QRCoder">
+      <Version>1.4.3</Version>
+    </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>108.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.Windows.Controls.DataVisualization.for.Wpf.Xaml">
+      <Version>2020.2.617</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.Windows.Controls.GridView.for.Wpf.Xaml">
+      <Version>2020.2.617</Version>
+    </PackageReference>
+    <PackageReference Include="Telerik.Windows.Controls.Navigation.for.Wpf.Xaml">
+      <Version>2020.2.617</Version>
+    </PackageReference>
+    <PackageReference Include="ZXing.Net">
+      <Version>0.16.8</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\spartronics.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close-icon.png" />
+    <Resource Include="Images\error-icon.png" />
+    <Resource Include="Images\maximize-icon.png" />
+    <Resource Include="Images\minimize-icon.png" />
+    <Resource Include="Images\question-icon.png" />
+    <Resource Include="Images\success-icon.png" />
+    <Resource Include="Images\warning-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\onset.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\OnsetModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnsetModel.edmx</DependentUpon>
+      <LastGenOutput>OnsetModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\OnsetModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnsetModel.edmx</DependentUpon>
+      <LastGenOutput>OnsetModel.cs</LastGenOutput>
+    </Content>
+    <Resource Include="Images\MX2202.tif" />
+    <Resource Include="Images\MX2201.tif" />
+    <Resource Include="Images\WEEE.png" />
+    <Resource Include="Images\RCM-logo.png" />
+    <Resource Include="Images\Japan-Compliance.png" />
+    <Resource Include="Images\wee.jpg" />
+    <Resource Include="Images\fcc.jpg" />
+    <Resource Include="Images\ce.jpg" />
+    <Resource Include="Images\rohs.jpg" />
+    <Resource Include="Images\Japan-Compliance.jpg" />
+    <Resource Include="Images\CE.tif" />
+    <Resource Include="Images\CX405.tif" />
+    <Resource Include="Images\FCC.tif" />
+    <Resource Include="Images\MX401.tif" />
+    <Resource Include="Images\rohs.tif" />
+    <Resource Include="Images\WEEE.tif" />
+    <Resource Include="Images\Japan-Compliance.tif" />
+    <Resource Include="Images\RCM-logo.tif" />
+    <Resource Include="app-icon.ico" />
+    <Resource Include="Images\china-rohs-10.png" />
+    <Resource Include="Images\fcc-symbol.png" />
+    <Resource Include="Images\registered-tm.png" />
+    <Resource Include="Images\MX1101-1.jpg" />
+    <Resource Include="Images\weee-symbol.png" />
+    <Resource Include="Images\ce-marking.png" />
+    <Resource Include="Images\rohs-10-symbol.jpg" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

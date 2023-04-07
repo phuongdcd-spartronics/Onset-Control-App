@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="87dbb0a7084d41ccb9073c6406bf767c" Name="Diagram1">
+        <EntityTypeShape EntityType="OnsetControlModel.AppAuthorization" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.Authorization" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.History" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.Package" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.PackageData" Width="1.5" PointX="5.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.PrintLog" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.Product" Width="1.5" PointX="3" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.ProductionOrder" Width="1.5" PointX="5.25" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.ProductLabel" Width="1.5" PointX="8.25" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.ProductRouter" Width="1.5" PointX="5.25" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.SerialComponent" Width="1.5" PointX="10.5" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.SerialData" Width="1.5" PointX="8.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.SerialRouting" Width="1.5" PointX="10.5" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="OnsetControlModel.User" Width="1.5" PointX="0.75" PointY="13.625" IsExpanded="true" />
+        <AssociationConnector Association="OnsetControlModel.FK_History_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_Package_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_PackageData_Package" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_PrintLog_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_Product_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductionOrder_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductLabel_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductRouter_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_SerialData_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductionOrder_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductLabel_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_ProductRouter_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_SerialComponent_SerialData" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_SerialData_User" ManuallyRouted="false" />
+        <AssociationConnector Association="OnsetControlModel.FK_SerialRouting_SerialData" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="OnsetControlModel.RouterInput" Width="1.5" PointX="7.5" PointY="25" />
+        <AssociationConnector Association="OnsetControlModel.FK_RouterInput_ProductRouter" />
+        <AssociationConnector Association="OnsetControlModel.FK_SerialRouting_ProductionOrder" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

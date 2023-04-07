@@ -1,0 +1,54 @@
+﻿<Window x:Class="Onset_Serialization.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Onset_Serialization"
+        mc:Ignorable="d" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize"
+        Title="Authenticate" x:Name="root" Height="450" Width="450" Loaded="Window_Loaded" MouseDown="Window_MouseDown">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="268*"/>
+            <ColumnDefinition Width="77*"/>
+        </Grid.ColumnDefinitions>
+        <telerik:RadBusyIndicator x:Name="idcLoader" Grid.ColumnSpan="3" Width="{Binding Width, ElementName=root}" telerik:StyleManager.Theme="Office2016" BusyContent="Connecting to server..." HorizontalContentAlignment="Center" HorizontalAlignment="Center" Panel.ZIndex="1" />
+        <Border BorderThickness="2" BorderBrush="White" Padding="20" Grid.ColumnSpan="3">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF49CAEE" Offset="0"/>
+                    <GradientStop Color="#ACC6E0" Offset="0.5"/>
+                    <GradientStop Color="#DCE7F5" Offset="0.856"/>
+                    <GradientStop Color="#DCE7F5" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type telerik:RadWatermarkTextBox}" />
+                </StackPanel.Resources>
+                <Image Source="/Images/spartronics.png" Width="300" />
+                <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Margin="20" Background="White">
+                    <StackPanel Margin="10">
+                        <TextBlock Text="Authentication" FontSize="20pt" HorizontalAlignment="Center" Foreground="DarkOliveGreen" Margin="0,10,0,30" />
+                        <TextBlock Text="Username:" Foreground="DarkGray" FontSize="12pt" />
+                        <telerik:RadWatermarkTextBox x:Name="txtUsername" WatermarkContent="Your employee code" Text="{Binding UserName}" MaxLength="26" telerik:StyleManager.Theme="Material" Margin="0,0,0,20" SelectionOnFocus="SelectAll" />
+                        <TextBlock Text="Password:" Foreground="DarkGray" FontSize="12pt" />
+                        <telerik:RadPasswordBox x:Name="txtPassword" WatermarkContent="Your Password" MaxLength="26" telerik:StyleManager.Theme="Material" LostFocus="txtPassword_LostFocus" GotFocus="txtPassword_GotFocus" PreviewKeyDown="txtPassword_PreviewKeyDown" Margin="0,0,0,20" />
+                        <Canvas x:Name="canvasLogin">
+                            <Grid Width="{Binding ActualWidth, ElementName=canvasLogin}" Canvas.Top="-15">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <telerik:RadButton x:Name="btnClose" Content="CLOSE" Width="100" Height="40" FontWeight="Bold" telerik:StyleManager.Theme="Material" Background="OrangeRed" Foreground="DarkBlue" IsCancel="True" IsTabStop="False" Cursor="Hand" Click="btnClose_Click" />
+                                <telerik:RadButton Grid.Column="1" x:Name="btnLogin" Content="LOGIN" Width="100" Height="40" FontWeight="Bold" Cursor="Hand" telerik:StyleManager.Theme="Material" Background="DeepSkyBlue" Foreground="DarkBlue" IsDefault="True" IsTabStop="False" Click="btnLogin_Click" />
+                            </Grid>
+                        </Canvas>
+                    </StackPanel>
+                </Border>
+                <TextBlock x:Name="txtAuthorized" Text="Authorized by Administrator." Foreground="Crimson" HorizontalAlignment="Center" Margin="0,10,0,0" FontWeight="Black" TextDecorations="Underline" Cursor="Hand" MouseDown="TextAuthorized_MouseDown" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

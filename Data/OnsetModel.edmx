@@ -1,0 +1,1211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OnsetControlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AppAuthorization">
+          <Key>
+            <PropertyRef Name="Identifier" />
+            <PropertyRef Name="FunctionName" />
+          </Key>
+          <Property Name="Identifier" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="FunctionName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="512" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Authorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ActionDesc" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Roles" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Reference" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Action" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Machine" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="SeqNo" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Materials" Type="nvarchar" MaxLength="128" />
+          <Property Name="Machine" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Finished" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageData">
+          <Key>
+            <PropertyRef Name="PackageId" />
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="PackageId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PrintLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RefId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="LabelName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PrintedData" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PrintedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="PrintedDate" Type="datetime" Nullable="false" />
+          <Property Name="Machine" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="512" />
+          <Property Name="Rev" Type="varchar" MaxLength="32" />
+          <Property Name="ExternalRev" Type="varchar" MaxLength="32" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="Obsoleted" Type="bit" Nullable="false" />
+          <Property Name="ObsoletedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ProductionOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="StartedAt" Type="datetime" />
+          <Property Name="EndedAt" Type="datetime" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductLabel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="LabelName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StationIndex" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductRouter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="StationName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="StationIndex" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RouterInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RouteId" Type="int" Nullable="false" />
+          <Property Name="Index" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Pattern" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerialComponent">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+            <PropertyRef Name="ComponentNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ComponentNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="StationIndex" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerialData">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="Group" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="SerialType" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Used" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SerialRouting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SerialNumber" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
+          <Property Name="StationIndex" Type="int" Nullable="false" />
+          <Property Name="StationName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="varchar" MaxLength="32" />
+          <Property Name="ModifiedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="AuthType" Type="int" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Section" Type="nvarchar" MaxLength="128" />
+          <Property Name="UserRole" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Activated" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_History_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageData_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="PackageData" Type="Self.PackageData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageData">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrintLog_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="PrintLog" Type="Self.PrintLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="PrintLog">
+              <PropertyRef Name="PrintedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrder_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductionOrder" Type="Self.ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrder_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductionOrder" Type="Self.ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductLabel_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductLabel" Type="Self.ProductLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductLabel">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductLabel_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductLabel" Type="Self.ProductLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductLabel">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductRouter_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductRouter" Type="Self.ProductRouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductRouter">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductRouter_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductRouter" Type="Self.ProductRouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductRouter">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouterInput_ProductRouter">
+          <End Role="ProductRouter" Type="Self.ProductRouter" Multiplicity="1" />
+          <End Role="RouterInput" Type="Self.RouterInput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductRouter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouterInput">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialComponent_SerialData">
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="1" />
+          <End Role="SerialComponent" Type="Self.SerialComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialData">
+              <PropertyRef Name="SerialNumber" />
+            </Principal>
+            <Dependent Role="SerialComponent">
+              <PropertyRef Name="SerialNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialData_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerialData">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialData_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="SerialData">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialRouting_ProductionOrder">
+          <End Role="ProductionOrder" Type="Self.ProductionOrder" Multiplicity="1" />
+          <End Role="SerialRouting" Type="Self.SerialRouting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerialRouting">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialRouting_SerialData">
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="1" />
+          <End Role="SerialRouting" Type="Self.SerialRouting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialData">
+              <PropertyRef Name="SerialNumber" />
+            </Principal>
+            <Dependent Role="SerialRouting">
+              <PropertyRef Name="SerialNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnsetControlModelStoreContainer">
+          <EntitySet Name="AppAuthorization" EntityType="Self.AppAuthorization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Authorization" EntityType="Self.Authorization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PackageData" EntityType="Self.PackageData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PrintLog" EntityType="Self.PrintLog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductionOrder" EntityType="Self.ProductionOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductLabel" EntityType="Self.ProductLabel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductRouter" EntityType="Self.ProductRouter" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RouterInput" EntityType="Self.RouterInput" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerialComponent" EntityType="Self.SerialComponent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerialData" EntityType="Self.SerialData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SerialRouting" EntityType="Self.SerialRouting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_History_User" Association="Self.FK_History_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_User" Association="Self.FK_Package_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageData_Package" Association="Self.FK_PackageData_Package">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="PackageData" EntitySet="PackageData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrintLog_User" Association="Self.FK_PrintLog_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="PrintLog" EntitySet="PrintLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_User" Association="Self.FK_Product_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrder_Product" Association="Self.FK_ProductionOrder_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrder_User" Association="Self.FK_ProductionOrder_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductLabel_Product" Association="Self.FK_ProductLabel_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductLabel" EntitySet="ProductLabel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductLabel_User" Association="Self.FK_ProductLabel_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProductLabel" EntitySet="ProductLabel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductRouter_Product" Association="Self.FK_ProductRouter_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductRouter" EntitySet="ProductRouter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductRouter_User" Association="Self.FK_ProductRouter_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ProductRouter" EntitySet="ProductRouter" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouterInput_ProductRouter" Association="Self.FK_RouterInput_ProductRouter">
+            <End Role="ProductRouter" EntitySet="ProductRouter" />
+            <End Role="RouterInput" EntitySet="RouterInput" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialComponent_SerialData" Association="Self.FK_SerialComponent_SerialData">
+            <End Role="SerialData" EntitySet="SerialData" />
+            <End Role="SerialComponent" EntitySet="SerialComponent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialData_Product" Association="Self.FK_SerialData_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="SerialData" EntitySet="SerialData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialData_User" Association="Self.FK_SerialData_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="SerialData" EntitySet="SerialData" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialRouting_ProductionOrder" Association="Self.FK_SerialRouting_ProductionOrder">
+            <End Role="ProductionOrder" EntitySet="ProductionOrder" />
+            <End Role="SerialRouting" EntitySet="SerialRouting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialRouting_SerialData" Association="Self.FK_SerialRouting_SerialData">
+            <End Role="SerialData" EntitySet="SerialData" />
+            <End Role="SerialRouting" EntitySet="SerialRouting" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OnsetControlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AppAuthorization">
+          <Key>
+            <PropertyRef Name="Identifier" />
+            <PropertyRef Name="FunctionName" />
+          </Key>
+          <Property Name="Identifier" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FunctionName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Authorization">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ActionDesc" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Roles" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Reference" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Action" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Machine" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_History_User" FromRole="History" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Number" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Type" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Materials" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Package_User" FromRole="Package" ToRole="User" />
+          <NavigationProperty Name="PackageDatas" Relationship="Self.FK_PackageData_Package" FromRole="Package" ToRole="PackageData" />
+          <Property Name="Prefix" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="SeqNo" Type="Int32" Nullable="false" />
+          <Property Name="Machine" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Finished" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PackageData">
+          <Key>
+            <PropertyRef Name="PackageId" />
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="PackageId" Type="Guid" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Package" Relationship="Self.FK_PackageData_Package" FromRole="PackageData" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="PrintLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RefId" Type="Guid" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LabelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrintedData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PrintedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PrintedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_PrintLog_User" FromRole="PrintLog" ToRole="User" />
+          <Property Name="Machine" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Rev" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ExternalRev" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Obsoleted" Type="Boolean" Nullable="false" />
+          <Property Name="ObsoletedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Product_User" FromRole="Product" ToRole="User" />
+          <NavigationProperty Name="ProductionOrders" Relationship="Self.FK_ProductionOrder_Product" FromRole="Product" ToRole="ProductionOrder" />
+          <NavigationProperty Name="ProductLabels" Relationship="Self.FK_ProductLabel_Product" FromRole="Product" ToRole="ProductLabel" />
+          <NavigationProperty Name="ProductRouters" Relationship="Self.FK_ProductRouter_Product" FromRole="Product" ToRole="ProductRouter" />
+          <NavigationProperty Name="SerialDatas" Relationship="Self.FK_SerialData_Product" FromRole="Product" ToRole="SerialData" />
+        </EntityType>
+        <EntityType Name="ProductionOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartedAt" Type="DateTime" Precision="3" />
+          <Property Name="EndedAt" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductionOrder_Product" FromRole="ProductionOrder" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ProductionOrder_User" FromRole="ProductionOrder" ToRole="User" />
+          <NavigationProperty Name="SerialRoutings" Relationship="OnsetControlModel.FK_SerialRouting_ProductionOrder" FromRole="ProductionOrder" ToRole="SerialRouting" />
+        </EntityType>
+        <EntityType Name="ProductLabel">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="LabelName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StationIndex" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductLabel_Product" FromRole="ProductLabel" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ProductLabel_User" FromRole="ProductLabel" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ProductRouter">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="StationName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StationIndex" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductRouter_Product" FromRole="ProductRouter" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ProductRouter_User" FromRole="ProductRouter" ToRole="User" />
+          <NavigationProperty Name="RouterInputs" Relationship="OnsetControlModel.FK_RouterInput_ProductRouter" FromRole="ProductRouter" ToRole="RouterInput" />
+        </EntityType>
+        <EntityType Name="SerialComponent">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+            <PropertyRef Name="ComponentNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ComponentNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StationIndex" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SerialData" Relationship="Self.FK_SerialComponent_SerialData" FromRole="SerialComponent" ToRole="SerialData" />
+        </EntityType>
+        <EntityType Name="SerialData">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="SerialType" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Used" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_SerialData_Product" FromRole="SerialData" ToRole="Product" />
+          <NavigationProperty Name="SerialComponents" Relationship="Self.FK_SerialComponent_SerialData" FromRole="SerialData" ToRole="SerialComponent" />
+          <NavigationProperty Name="User" Relationship="Self.FK_SerialData_User" FromRole="SerialData" ToRole="User" />
+          <NavigationProperty Name="SerialRoutings" Relationship="Self.FK_SerialRouting_SerialData" FromRole="SerialData" ToRole="SerialRouting" />
+          <Property Name="Group" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SerialRouting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="SerialNumber" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
+          <Property Name="StationIndex" Type="Int32" Nullable="false" />
+          <Property Name="StationName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="String" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="ModifiedAt" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SerialData" Relationship="Self.FK_SerialRouting_SerialData" FromRole="SerialRouting" ToRole="SerialData" />
+          <NavigationProperty Name="ProductionOrder" Relationship="OnsetControlModel.FK_SerialRouting_ProductionOrder" FromRole="SerialRouting" ToRole="ProductionOrder" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuthType" Type="Int32" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Section" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserRole" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Activated" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Histories" Relationship="Self.FK_History_User" FromRole="User" ToRole="History" />
+          <NavigationProperty Name="Packages" Relationship="Self.FK_Package_User" FromRole="User" ToRole="Package" />
+          <NavigationProperty Name="PrintLogs" Relationship="Self.FK_PrintLog_User" FromRole="User" ToRole="PrintLog" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_User" FromRole="User" ToRole="Product" />
+          <NavigationProperty Name="ProductionOrders" Relationship="Self.FK_ProductionOrder_User" FromRole="User" ToRole="ProductionOrder" />
+          <NavigationProperty Name="ProductLabels" Relationship="Self.FK_ProductLabel_User" FromRole="User" ToRole="ProductLabel" />
+          <NavigationProperty Name="ProductRouters" Relationship="Self.FK_ProductRouter_User" FromRole="User" ToRole="ProductRouter" />
+          <NavigationProperty Name="SerialDatas" Relationship="Self.FK_SerialData_User" FromRole="User" ToRole="SerialData" />
+        </EntityType>
+        <Association Name="FK_History_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="History" Type="Self.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Package_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageData_Package">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="PackageData" Type="Self.PackageData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageData">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PrintLog_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="PrintLog" Type="Self.PrintLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="PrintLog">
+              <PropertyRef Name="PrintedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrder_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductionOrder" Type="Self.ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductLabel_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductLabel" Type="Self.ProductLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductLabel">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductRouter_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductRouter" Type="Self.ProductRouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductRouter">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialData_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerialData">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductionOrder_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductionOrder" Type="Self.ProductionOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductionOrder">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductLabel_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductLabel" Type="Self.ProductLabel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductLabel">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductRouter_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ProductRouter" Type="Self.ProductRouter" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="ProductRouter">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialComponent_SerialData">
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="1" />
+          <End Role="SerialComponent" Type="Self.SerialComponent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialData">
+              <PropertyRef Name="SerialNumber" />
+            </Principal>
+            <Dependent Role="SerialComponent">
+              <PropertyRef Name="SerialNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialData_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="SerialData">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialRouting_SerialData">
+          <End Role="SerialData" Type="Self.SerialData" Multiplicity="1" />
+          <End Role="SerialRouting" Type="Self.SerialRouting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SerialData">
+              <PropertyRef Name="SerialNumber" />
+            </Principal>
+            <Dependent Role="SerialRouting">
+              <PropertyRef Name="SerialNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OnsetControlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AppAuthorizations" EntityType="Self.AppAuthorization" />
+          <EntitySet Name="Authorizations" EntityType="Self.Authorization" />
+          <EntitySet Name="Histories" EntityType="Self.History" />
+          <EntitySet Name="Packages" EntityType="Self.Package" />
+          <EntitySet Name="PackageDatas" EntityType="Self.PackageData" />
+          <EntitySet Name="PrintLogs" EntityType="Self.PrintLog" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductionOrders" EntityType="Self.ProductionOrder" />
+          <EntitySet Name="ProductLabels" EntityType="Self.ProductLabel" />
+          <EntitySet Name="ProductRouters" EntityType="Self.ProductRouter" />
+          <EntitySet Name="SerialComponents" EntityType="Self.SerialComponent" />
+          <EntitySet Name="SerialDatas" EntityType="Self.SerialData" />
+          <EntitySet Name="SerialRoutings" EntityType="Self.SerialRouting" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_History_User" Association="Self.FK_History_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="History" EntitySet="Histories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Package_User" Association="Self.FK_Package_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageData_Package" Association="Self.FK_PackageData_Package">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="PackageData" EntitySet="PackageDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PrintLog_User" Association="Self.FK_PrintLog_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="PrintLog" EntitySet="PrintLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_User" Association="Self.FK_Product_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrder_Product" Association="Self.FK_ProductionOrder_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductLabel_Product" Association="Self.FK_ProductLabel_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductLabel" EntitySet="ProductLabels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductRouter_Product" Association="Self.FK_ProductRouter_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductRouter" EntitySet="ProductRouters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialData_Product" Association="Self.FK_SerialData_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="SerialData" EntitySet="SerialDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductionOrder_User" Association="Self.FK_ProductionOrder_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProductionOrder" EntitySet="ProductionOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductLabel_User" Association="Self.FK_ProductLabel_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProductLabel" EntitySet="ProductLabels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductRouter_User" Association="Self.FK_ProductRouter_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ProductRouter" EntitySet="ProductRouters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialComponent_SerialData" Association="Self.FK_SerialComponent_SerialData">
+            <End Role="SerialData" EntitySet="SerialDatas" />
+            <End Role="SerialComponent" EntitySet="SerialComponents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialData_User" Association="Self.FK_SerialData_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="SerialData" EntitySet="SerialDatas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialRouting_SerialData" Association="Self.FK_SerialRouting_SerialData">
+            <End Role="SerialData" EntitySet="SerialDatas" />
+            <End Role="SerialRouting" EntitySet="SerialRoutings" />
+          </AssociationSet>
+          <EntitySet Name="RouterInputs" EntityType="OnsetControlModel.RouterInput" />
+          <AssociationSet Name="FK_RouterInput_ProductRouter" Association="OnsetControlModel.FK_RouterInput_ProductRouter">
+            <End Role="ProductRouter" EntitySet="ProductRouters" />
+            <End Role="RouterInput" EntitySet="RouterInputs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SerialRouting_ProductionOrder" Association="OnsetControlModel.FK_SerialRouting_ProductionOrder">
+            <End Role="ProductionOrder" EntitySet="ProductionOrders" />
+            <End Role="SerialRouting" EntitySet="SerialRoutings" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="RouterInput">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RouteId" Type="Int32" Nullable="false" />
+          <Property Name="Index" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Pattern" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="ProductRouter" Relationship="OnsetControlModel.FK_RouterInput_ProductRouter" FromRole="RouterInput" ToRole="ProductRouter" />
+        </EntityType>
+        <Association Name="FK_RouterInput_ProductRouter">
+          <End Type="OnsetControlModel.ProductRouter" Role="ProductRouter" Multiplicity="1" />
+          <End Type="OnsetControlModel.RouterInput" Role="RouterInput" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductRouter">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RouterInput">
+              <PropertyRef Name="RouteId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SerialRouting_ProductionOrder">
+          <End Type="OnsetControlModel.ProductionOrder" Role="ProductionOrder" Multiplicity="1" />
+          <End Type="OnsetControlModel.SerialRouting" Role="SerialRouting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductionOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SerialRouting">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OnsetControlModelStoreContainer" CdmEntityContainer="OnsetControlEntities">
+          <EntitySetMapping Name="AppAuthorizations">
+            <EntityTypeMapping TypeName="OnsetControlModel.AppAuthorization">
+              <MappingFragment StoreEntitySet="AppAuthorization">
+                <ScalarProperty Name="Identifier" ColumnName="Identifier" />
+                <ScalarProperty Name="FunctionName" ColumnName="FunctionName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Authorizations">
+            <EntityTypeMapping TypeName="OnsetControlModel.Authorization">
+              <MappingFragment StoreEntitySet="Authorization">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="ActionDesc" ColumnName="ActionDesc" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Histories">
+            <EntityTypeMapping TypeName="OnsetControlModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Reference" ColumnName="Reference" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Machine" ColumnName="Machine" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="OnsetControlModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="Finished" ColumnName="Finished" />
+                <ScalarProperty Name="Machine" ColumnName="Machine" />
+                <ScalarProperty Name="SeqNo" ColumnName="SeqNo" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Materials" ColumnName="Materials" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PackageDatas">
+            <EntityTypeMapping TypeName="OnsetControlModel.PackageData">
+              <MappingFragment StoreEntitySet="PackageData">
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PrintLogs">
+            <EntityTypeMapping TypeName="OnsetControlModel.PrintLog">
+              <MappingFragment StoreEntitySet="PrintLog">
+                <ScalarProperty Name="Machine" ColumnName="Machine" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RefId" ColumnName="RefId" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="LabelName" ColumnName="LabelName" />
+                <ScalarProperty Name="PrintedData" ColumnName="PrintedData" />
+                <ScalarProperty Name="PrintedBy" ColumnName="PrintedBy" />
+                <ScalarProperty Name="PrintedDate" ColumnName="PrintedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="OnsetControlModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Rev" ColumnName="Rev" />
+                <ScalarProperty Name="ExternalRev" ColumnName="ExternalRev" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Obsoleted" ColumnName="Obsoleted" />
+                <ScalarProperty Name="ObsoletedAt" ColumnName="ObsoletedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductionOrders">
+            <EntityTypeMapping TypeName="OnsetControlModel.ProductionOrder">
+              <MappingFragment StoreEntitySet="ProductionOrder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="StartedAt" ColumnName="StartedAt" />
+                <ScalarProperty Name="EndedAt" ColumnName="EndedAt" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductLabels">
+            <EntityTypeMapping TypeName="OnsetControlModel.ProductLabel">
+              <MappingFragment StoreEntitySet="ProductLabel">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="LabelName" ColumnName="LabelName" />
+                <ScalarProperty Name="StationIndex" ColumnName="StationIndex" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductRouters">
+            <EntityTypeMapping TypeName="OnsetControlModel.ProductRouter">
+              <MappingFragment StoreEntitySet="ProductRouter">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="StationIndex" ColumnName="StationIndex" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerialComponents">
+            <EntityTypeMapping TypeName="OnsetControlModel.SerialComponent">
+              <MappingFragment StoreEntitySet="SerialComponent">
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ComponentNumber" ColumnName="ComponentNumber" />
+                <ScalarProperty Name="StationIndex" ColumnName="StationIndex" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerialDatas">
+            <EntityTypeMapping TypeName="OnsetControlModel.SerialData">
+              <MappingFragment StoreEntitySet="SerialData">
+                <ScalarProperty Name="Group" ColumnName="Group" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SerialType" ColumnName="SerialType" />
+                <ScalarProperty Name="Used" ColumnName="Used" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SerialRoutings">
+            <EntityTypeMapping TypeName="OnsetControlModel.SerialRouting">
+              <MappingFragment StoreEntitySet="SerialRouting">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="StationIndex" ColumnName="StationIndex" />
+                <ScalarProperty Name="StationName" ColumnName="StationName" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedAt" ColumnName="ModifiedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OnsetControlModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AuthType" ColumnName="AuthType" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Activated" ColumnName="Activated" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouterInputs">
+            <EntityTypeMapping TypeName="OnsetControlModel.RouterInput">
+              <MappingFragment StoreEntitySet="RouterInput">
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Pattern" ColumnName="Pattern" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="RouteId" ColumnName="RouteId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

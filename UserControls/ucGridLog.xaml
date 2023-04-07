@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Onset_Serialization.UserControls.ucGridLog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Onset_Serialization.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border BorderThickness="2" BorderBrush="White" CornerRadius="0">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource {x:Type TextBlock}}">
+                        <Setter Property="Margin" Value="10,0,10,0" />
+                        <Setter Property="FontSize" Value="13pt" />
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                    </Style>
+                    <Style TargetType="{x:Type telerik:RadDatePicker}">
+                        <Setter Property="VerticalAlignment" Value="Center" />
+                        <Setter Property="OpenDropDownOnFocus" Value="True" />
+                        <Setter Property="telerik:StyleManager.Theme" Value="Crystal" />
+                    </Style>
+                    <Style TargetType="{x:Type telerik:RadWatermarkTextBox}" BasedOn="{StaticResource {x:Type telerik:RadWatermarkTextBox}}">
+                    </Style>
+                    <Style TargetType="{x:Type telerik:RadButton}" BasedOn="{StaticResource {x:Type telerik:RadButton}}">
+                        <Setter Property="MinWidth" Value="100" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <telerik:RadButton Content="Print" Background="DodgerBlue" Click="Print_Click" Visibility="{Binding ShowPrintButton, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding ElementName=gridLog, Path=SelectedItems.Count}" />
+                <telerik:RadButton Grid.Column="1" Content="Delete" Background="Red" Click="Delete_Click" Visibility="{Binding ShowDeleteButton, Converter={StaticResource BoolToVisibilityConverter}}" IsEnabled="{Binding ElementName=gridLog, Path=SelectedItems.Count}" />
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <telerik:RadWatermarkTextBox Text="{Binding FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" WatermarkContent="{Binding SearchBoxPlaceholder}" Visibility="{Binding SearchBoxPlaceholder, Converter={StaticResource NullToVisibilityConverter}}" Width="200" TextAlignment="Right" telerik:StyleManager.Theme="Crystal" KeyUp="RadWatermarkTextBox_KeyUp" />
+                    <TextBlock Text="From:" HorizontalAlignment="Right" />
+                    <telerik:RadDatePicker SelectedValue="{Binding FilterFromDate}" SelectionChanged="DatePicker_SelectionChanged" />
+                    <TextBlock Text="To:" />
+                    <telerik:RadDatePicker SelectedValue="{Binding FilterToDate}" SelectionChanged="DatePicker_SelectionChanged" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <telerik:RadGridView x:Name="gridLog" Grid.Row="2" SelectionMode="{Binding SelectionMode}" telerik:StyleManager.Theme="Crystal" IsReadOnly="True" Background="White" ShowSearchPanel="True" ShowGroupPanel="True" RowIndicatorVisibility="Collapsed" GroupRenderMode="Flat" DataLoadMode="Asynchronous">
+        </telerik:RadGridView>
+    </Grid>
+</UserControl>
