@@ -61,6 +61,11 @@
                         </telerik:RadNavigationViewItem>
                     </telerik:RadNavigationViewItem.Items>
                 </telerik:RadNavigationViewItem>
+                <telerik:RadNavigationViewItem Content="Print Label" ToolTip="In lấy số" CommandParameter="SerialPrintPage" Click="navItemToPage_Click">
+                    <telerik:RadNavigationViewItem.Icon>
+                        <telerik:RadGlyph Glyph="&#xe526;" FontSize="16"/>
+                    </telerik:RadNavigationViewItem.Icon>
+                </telerik:RadNavigationViewItem>
                 <telerik:RadNavigationViewItem Content="Initialize" ToolTip="Khởi tạo số" CommandParameter="SerialInitialPage" Click="navItemToPage_Click">
                     <telerik:RadNavigationViewItem.Icon>
                         <telerik:RadGlyph Glyph="&#xe526;" FontSize="16"/>
