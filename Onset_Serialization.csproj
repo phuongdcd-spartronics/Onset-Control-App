@@ -224,6 +224,12 @@
     <Compile Include="Pages\SerialGeneratorPage.xaml.cs">
       <DependentUpon>SerialGeneratorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SerialInitialPage_bak.xaml.cs">
+      <DependentUpon>SerialInitialPage_bak.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SerialPrintPage.xaml.cs">
+      <DependentUpon>SerialPrintPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SerialInitialPage.xaml.cs">
       <DependentUpon>SerialInitialPage.xaml</DependentUpon>
     </Compile>
@@ -338,6 +344,14 @@
     <Page Include="Pages\SerialGeneratorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SerialInitialPage_bak.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\SerialPrintPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Pages\SerialInitialPage.xaml">
       <SubType>Designer</SubType>
