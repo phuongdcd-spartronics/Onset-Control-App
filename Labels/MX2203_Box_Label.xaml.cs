@@ -8,11 +8,11 @@ using System.Windows.Controls;
 namespace Onset_Serialization.Labels
 {
     /// <summary>
-    /// Interaction logic for MX2201_Box_Label.xaml
+    /// Interaction logic for MX2203_Box_Label.xaml
     /// </summary>
-    public partial class MX2201_Box_Label : Window, IPrintable
+    public partial class MX2203_Box_Label : Window, IPrintable
     {
-        public MX2201_Box_Label()
+        public MX2203_Box_Label()
         {
             InitializeComponent();
         }

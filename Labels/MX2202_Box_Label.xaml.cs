@@ -8,11 +8,11 @@ using System.Windows.Controls;
 namespace Onset_Serialization.Labels
 {
     /// <summary>
-    /// Interaction logic for MX1101_Box_Label.xaml
+    /// Interaction logic for MX2202_Box_Label.xaml
     /// </summary>
-    public partial class MX2201_Box_Label : Window, IPrintable
+    public partial class MX2202_Box_Label : Window, IPrintable
     {
-        public MX2201_Box_Label()
+        public MX2202_Box_Label()
         {
             InitializeComponent();
         }
@@ -28,7 +28,7 @@ namespace Onset_Serialization.Labels
             {
                 try
                 {
-                    //imgDMSerial.Source = DataMatrixImage.GetDataMatrixCodeImage(info.SerialNumber);
+                    imgDMSerial.Source = DataMatrixImage.GetDataMatrixCodeImage(info.SerialNumber);
 
                     PrintDialog printer = new PrintDialog();
                     if (!String.IsNullOrEmpty(printerName))
@@ -36,7 +36,7 @@ namespace Onset_Serialization.Labels
                         printer.PrintQueue = new LocalPrintServer().GetPrintQueue(printerName);
                     }
                     // print on default printer
-                    printer.PrintVisual(this.printArea, $"{info.SerialNumber} - MX2201 Box");
+                    printer.PrintVisual(this.printArea, $"{info.SerialNumber} - MX2202 Box");
                 }
                 catch
                 {
