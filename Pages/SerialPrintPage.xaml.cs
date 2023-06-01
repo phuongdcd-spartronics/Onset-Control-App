@@ -54,17 +54,17 @@ namespace Onset_Serialization.Pages
             }
         }
 
-        private async void btPrintLabel_Click(object sender, RoutedEventArgs e)
+        private void btPrintLabel_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 tbMessage.Foreground = Brushes.Red;
 
                 var wo = cbbWO.SelectedItem as ProductionOrder;
-                SerialRouting route = await _dbContext.SerialRoutings
+                SerialRouting route = _dbContext.SerialRoutings
                     .Where(x => x.OrderId == wo.Id && x.StationIndex == STATION_INDEX && x.Status == Status.CREATED)
                     .OrderBy(x => x.SerialNumber)
-                    .FirstOrDefaultAsync();
+                    .FirstOrDefault();
 
                 if (route == null)
                 {
@@ -75,9 +75,9 @@ namespace Onset_Serialization.Pages
                 using (var transaction = _dbContext.Database.BeginTransaction())
                 {
                     // Initialize and record printed labels
-                    var labels = await _dbContext.ProductLabels
+                    var labels = _dbContext.ProductLabels
                         .Where(x => x.ProductId == wo.ProductId && x.StationIndex == STATION_INDEX)
-                        .ToListAsync();
+                        .ToList();
                     List<Action> printActions = new List<Action>();
                     foreach (var label in labels)
                     {
@@ -102,7 +102,7 @@ namespace Onset_Serialization.Pages
                     route.Status = Status.PASSED;
                     route.ModifiedBy = UserSession.UserID;
                     route.ModifiedAt = DateTime.Now;
-                    await _dbContext.SaveChangesAsync();
+                    _dbContext.SaveChanges();
                     transaction.Commit();
 
                     // Print label
