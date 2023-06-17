@@ -84,6 +84,7 @@
           <Property Name="Description" Type="nvarchar" MaxLength="512" />
           <Property Name="Rev" Type="varchar" MaxLength="32" />
           <Property Name="ExternalRev" Type="varchar" MaxLength="32" />
+          <Property Name="HasInitialize" Type="bit" />
           <Property Name="CreatedBy" Type="varchar" MaxLength="32" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="Obsoleted" Type="bit" Nullable="false" />
@@ -573,6 +574,7 @@
           <NavigationProperty Name="ProductLabels" Relationship="Self.FK_ProductLabel_Product" FromRole="Product" ToRole="ProductLabel" />
           <NavigationProperty Name="ProductRouters" Relationship="Self.FK_ProductRouter_Product" FromRole="Product" ToRole="ProductRouter" />
           <NavigationProperty Name="SerialDatas" Relationship="Self.FK_SerialData_Product" FromRole="Product" ToRole="SerialData" />
+          <Property Name="HasInitialize" Type="Boolean" />
         </EntityType>
         <EntityType Name="ProductionOrder">
           <Key>
@@ -1068,6 +1070,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="OnsetControlModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="HasInitialize" ColumnName="HasInitialize" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />

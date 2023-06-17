@@ -27,7 +27,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <UpdateUrl>\\vtnaegisapp\Share\Application\Onset\</UpdateUrl>
     <MinimumRequiredVersion>1.0.0.0</MinimumRequiredVersion>
-    <ApplicationRevision>26</ApplicationRevision>
+    <ApplicationRevision>39</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -171,6 +171,15 @@
     <Compile Include="Labels\CX405_Box_Label.xaml.cs">
       <DependentUpon>CX405_Box_Label.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Labels\MX2201_Box_V2_Label.xaml.cs">
+      <DependentUpon>MX2201_Box_V2_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX2202_Box_V2_Label.xaml.cs">
+      <DependentUpon>MX2202_Box_V2_Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Labels\MX2203_Box_V2_Label.xaml.cs">
+      <DependentUpon>MX2203_Box_V2_Label.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Labels\MX2203_Box_Label.xaml.cs">
       <DependentUpon>MX2203_Box_Label.xaml</DependentUpon>
     </Compile>
@@ -269,6 +278,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Labels\CX405_Box_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX2201_Box_V2_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX2202_Box_V2_Label.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Labels\MX2203_Box_V2_Label.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

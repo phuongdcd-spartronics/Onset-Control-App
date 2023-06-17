@@ -1,19 +1,22 @@
-﻿<Page
+﻿<Page x:Class="Onset_Serialization.Pages.PackageGeneratorPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Onset_Serialization.Pages"
-      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" x:Class="Onset_Serialization.Pages.PackageGeneratorPage"
+      xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" 
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PackageGeneratorPage" Loaded="Page_Loaded">
 
-    <Grid Grid.Column="0">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <telerik:RadBusyIndicator x:Name="rbiLoader" Grid.ColumnSpan="2" Panel.ZIndex="1" HorizontalAlignment="Stretch"  HorizontalContentAlignment="Center" VerticalContentAlignment="Center" telerik:StyleManager.Theme="Material" />
+        
         <telerik:GroupBox Header="Input data">
             <Grid Grid.Column="0">
                 <Grid.Resources>
@@ -29,25 +32,26 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <telerik:RadBusyIndicator x:Name="rbiLoader" Grid.RowSpan="5" Grid.ColumnSpan="2" Panel.ZIndex="1" BusyContent="Processing" />
-
                 <TextBlock Text="Assembly:" />
                 <telerik:RadComboBox Grid.Column="1" x:Name="cbbAssembly" MinWidth="200" ItemsSource="{Binding Products}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedProduct}" SelectionChanged="cbbAssembly_SelectionChanged" />
 
                 <TextBlock Text="PO#:" Grid.Row="1" />
                 <telerik:RadComboBox Grid.Row="1" Grid.Column="2" x:Name="cbbPO" MinWidth="100" ItemsSource="{Binding ProductGroup}" DisplayMemberPath="PONumber" SelectedItem="{Binding SelectedProductGroup}" SelectionChanged="cbbPO_SelectionChanged" />
+                
+                <TextBlock Text="Template file:   " Grid.Row="2" VerticalAlignment="Center" />
+                <Button Name="btOpenFile" Grid.Column="3" Grid.Row="2" Content="..." Background="Gray" Click="btOpenFile_Click" Margin="0,10, 100, 10"/>
 
-                <TextBlock Text="Template file:" Grid.Row="2" />
-                <Button Name="btOpenFile" Grid.Column="2" Grid.Row="2" Content="..." Background="Gray" Click="btOpenFile_Click" Margin="0,10, 100, 10"/>
+                <TextBlock x:Name="tbMessage" Text="" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
-                <telerik:RadButton x:Name="btnBack" Grid.Row="4" Content="Back" Click="btnBack_Click" />
-                <telerik:RadButton x:Name="btnCreate" Grid.Row="4" Grid.Column="1" Content="Create" Click="btnCreate_Click" />
+                <telerik:RadButton x:Name="btnBack" Grid.Row="4" Content="Back" Click="btnBack_Click" Margin="5 10" />
+                <telerik:RadButton x:Name="btnCreate" Grid.Row="4" Grid.Column="1" Content="Generate" Click="btnCreate_Click" Background="Orange" />
             </Grid>
         </telerik:GroupBox>
         <telerik:GroupBox Header="Information" Grid.Column="1">

@@ -32,6 +32,7 @@ namespace Onset_Serialization.Data
         public System.DateTime CreatedAt { get; set; }
         public bool Obsoleted { get; set; }
         public Nullable<System.DateTime> ObsoletedAt { get; set; }
+        public Nullable<bool> HasInitialize { get; set; }
     
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

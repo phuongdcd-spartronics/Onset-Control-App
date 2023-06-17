@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using OfficeOpenXml;
 using Onset_Serialization.Data;
+using Onset_Serialization.Models;
 using Onset_Serialization.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -46,7 +48,11 @@ namespace Onset_Serialization.Pages
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Excel files (*.xls)|*.xlsx";
             if (openFileDialog.ShowDialog() == true)
+            {
                 filePath = openFileDialog.FileName;
+                FileInfo fileInfo = new FileInfo(filePath);
+                tbMessage.Text = fileInfo.Name;
+            }
         }
 
         private void cbbAssembly_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -88,88 +94,120 @@ namespace Onset_Serialization.Pages
             }
         }
 
-        private async void btnCreate_Click(object sender, RoutedEventArgs e)
+        private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
             if(filePath != string.Empty)
             {
-                // Read excel file
-                FileInfo existingFile = new FileInfo(filePath);
-                using (ExcelPackage package = new ExcelPackage(existingFile))
+                if (CstMessageBox.Confirm($"Generate package data", $"Continue to generate package data with this file?"))
                 {
-                    int sheetCount = package.Workbook.Worksheets.Count;
-                    for (int idx = 0; idx < sheetCount; idx++)
+                    rbiLoader.BusyContent = "Generating... Please do not shut down application!";
+                    rbiLoader.IsBusy = true;
+                    BackgroundWorker worker = new BackgroundWorker();
+                    worker.DoWork += GeneratePackage_DoWork;
+                    worker.RunWorkerCompleted += (o, ev) =>
                     {
-                        using (var objContext = new OnsetControlEntities())
+                        rbiLoader.IsBusy = false;
+                        var result = ev.Result as WorkerResultInfo;
+                        if (result.Success)
                         {
-                            using (var tran = objContext.Database.BeginTransaction())
+                            CstMessageBox.Show("Success", result.Message, CstMessageBoxIcon.Success);
+                        }
+                        else
+                        {
+                            CstMessageBox.Show("Error", result.Message, CstMessageBoxIcon.Error);
+                        }
+                        LoadPackage();
+                        filePath = string.Empty;
+                    };
+                    worker.RunWorkerAsync();
+                }
+                
+                //MessageBox.Show("The package number has been generated successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
+            }
+            else
+            {
+                MessageBox.Show("Template file doesn't existed. Please try again.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
+                return;
+            }
+        }
+
+        private void GeneratePackage_DoWork(object sender, DoWorkEventArgs e)
+        {
+            WorkerResultInfo result = new WorkerResultInfo();
+
+            // Read excel file
+            FileInfo existingFile = new FileInfo(filePath);
+            using (ExcelPackage package = new ExcelPackage(existingFile))
+            {
+                int sheetCount = package.Workbook.Worksheets.Count;
+                for (int idx = 0; idx < sheetCount; idx++)
+                {
+                    using (var objContext = new OnsetControlEntities())
+                    {
+                        using (var tran = objContext.Database.BeginTransaction())
+                        {
+                            try
                             {
-                                try
+                                ExcelWorksheet worksheet = package.Workbook.Worksheets[idx];
+                                int colCount = 1; // worksheet.Dimension.End.Column;
+                                int rowCount = worksheet.Dimension.End.Row;
+
+                                // Generate package
+                                int seq = Convert.ToInt32(worksheet.Name.Trim());
+                                Guid _packageID = Guid.NewGuid();
+                                string _prefix = _vm.SelectedProductGroup.PONumber;
+                                string packageNumber = $"{_prefix}-{seq.ToString().PadLeft(3, '0')}";
+                                if (objContext.Packages.Where(x => x.Number == packageNumber).Count() > 0)
                                 {
-                                    ExcelWorksheet worksheet = package.Workbook.Worksheets[idx];
-                                    int colCount = worksheet.Dimension.End.Column;
-                                    int rowCount = worksheet.Dimension.End.Row;
+                                    MessageBox.Show("Package number " + packageNumber + " already exists. Please try again.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
+                                    return;
+                                }
+                                objContext.Packages.Add(new Package()
+                                {
+                                    Id = _packageID,
+                                    Number = packageNumber,
+                                    Prefix = _prefix,
+                                    SeqNo = seq,
+                                    Type = "Box Packing",
+                                    Quantity = rowCount,
+                                    Materials = "Paperboard",
+                                    Finished = false,
+                                    Machine = Environment.MachineName,
+                                    CreatedBy = UserSession.UserID,
+                                    CreatedAt = DateTime.Now
+                                });
+                                objContext.SaveChanges();
 
-                                    // Generate package
-                                    int seq = Convert.ToInt32(worksheet.Name);
-                                    Guid _packageID = Guid.NewGuid();
-                                    string _prefix = _vm.SelectedProductGroup.PONumber;
-                                    string packageNumber = $"{_prefix}-{seq.ToString().PadLeft(3, '0')}";
-                                    if (await _dbContext.Packages.Where(x => x.Number == packageNumber).CountAsync() > 0)
+                                for (int row = 1; row <= rowCount; row++)
+                                {
+                                    for (int col = 1; col <= colCount; col++)
                                     {
-                                        MessageBox.Show("Package number " + packageNumber + " already exists. Please try again.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
-                                        return;
-                                    }
-                                    objContext.Packages.Add(new Package()
-                                    {
-                                        Id = _packageID,
-                                        Number = packageNumber,
-                                        Prefix = _prefix,
-                                        SeqNo = seq,
-                                        Type = "Box Packing",
-                                        Quantity = rowCount,
-                                        Materials = "Paperboard",
-                                        Finished = false,
-                                        Machine = Environment.MachineName,
-                                        CreatedBy = UserSession.UserID,
-                                        CreatedAt = DateTime.Now
-                                    });
-                                    await objContext.SaveChangesAsync();
-
-                                    for (int row = 1; row <= rowCount; row++)
-                                    {
-                                        for (int col = 1; col <= colCount; col++)
+                                        // Generate package data
+                                        objContext.PackageDatas.Add(new PackageData()
                                         {
-                                            // Generate package data
-                                            objContext.PackageDatas.Add(new PackageData()
-                                            {
-                                                PackageId = _packageID,
-                                                SerialNumber = worksheet.Cells[row, col].Value?.ToString().Trim(),
-                                                CreatedAt = DateTime.Now
-                                            });
-                                        }
+                                            PackageId = _packageID,
+                                            SerialNumber = worksheet.Cells[row, col].Value?.ToString().Trim(),
+                                            CreatedAt = DateTime.Now
+                                        });
                                     }
-                                    await objContext.SaveChangesAsync();
-                                    tran.Commit();
                                 }
-                                catch (Exception ex)
-                                {
-                                    tran.Rollback();
-                                    throw ex;
-                                }
+                                objContext.SaveChanges();
+                                tran.Commit();
+                                result.Success = true;
+                                result.Message = $"Package data has been generated successfully!";
+                            }
+                            catch (Exception ex)
+                            {
+                                tran.Rollback();
+                                //throw ex;
+                                result.Message = ex.Message;
                             }
                         }
                     }
                 }
-                            
-                LoadPackage();
-                filePath = string.Empty;
-                MessageBox.Show("The package number has been generated successfully.", "Information", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.Yes);
             }
-            else
-            {
-                MessageBox.Show("Template file doesn't exist. Please try again.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.Yes);
-                return;
-            }
+            
+            e.Result = result;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)

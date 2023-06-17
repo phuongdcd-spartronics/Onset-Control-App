@@ -137,6 +137,8 @@ namespace Onset_Serialization.Pages
             {
                 try
                 {
+                    bool productHasInitialize = _vm.Order.Product.HasInitialize.Value;
+
                     var serialList = e.Argument as List<SerialData>;
                     List<ProductRouter> routers = _dbContext.ProductRouters
                         .Where(x => x.ProductId == _vm.Order.ProductId)
@@ -153,17 +155,35 @@ namespace Onset_Serialization.Pages
                         {
                             foreach (ProductRouter router in routers)
                             {
-                                _dbContext.SerialRoutings.Add(new SerialRouting()
+                                // Pass tram dau neu setup san pham khong co tram nay
+                                if (!productHasInitialize && router.StationIndex == Station.INITIALIZE)
                                 {
-                                    Id = Guid.NewGuid(),
-                                    SerialNumber = serial.SerialNumber,
-                                    OrderId = _vm.Order.Id,
-                                    StationIndex = router.StationIndex,
-                                    StationName = router.StationName,
-                                    Status = Status.CREATED,
-                                    CreatedBy = UserSession.UserID,
-                                    CreatedAt = DateTime.Now
-                                });
+                                    _dbContext.SerialRoutings.Add(new SerialRouting()
+                                    {
+                                        Id = Guid.NewGuid(),
+                                        SerialNumber = serial.SerialNumber,
+                                        OrderId = _vm.Order.Id,
+                                        StationIndex = router.StationIndex,
+                                        StationName = router.StationName,
+                                        Status = Status.PASSED,
+                                        CreatedBy = UserSession.UserID,
+                                        CreatedAt = DateTime.Now
+                                    });
+                                }
+                                else
+                                {
+                                    _dbContext.SerialRoutings.Add(new SerialRouting()
+                                    {
+                                        Id = Guid.NewGuid(),
+                                        SerialNumber = serial.SerialNumber,
+                                        OrderId = _vm.Order.Id,
+                                        StationIndex = router.StationIndex,
+                                        StationName = router.StationName,
+                                        Status = Status.CREATED,
+                                        CreatedBy = UserSession.UserID,
+                                        CreatedAt = DateTime.Now
+                                    });
+                                }
                             }
                             serial.Used = true;
                         }

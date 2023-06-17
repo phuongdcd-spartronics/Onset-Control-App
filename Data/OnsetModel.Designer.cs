@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\tat.tuong\source\repos\Onset_Serialization\Data\OnsetModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Data\Working\01. Projects\01. Application\Onset_Serialization\Data\OnsetModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

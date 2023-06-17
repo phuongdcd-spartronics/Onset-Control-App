@@ -44,14 +44,14 @@
                                 <telerik:RadGlyph Glyph="&#xe12e;" FontSize="16"/>
                             </telerik:RadNavigationViewItem.Icon>
                         </telerik:RadNavigationViewItem>
-                        <telerik:RadNavigationViewItem Content="Package Generator" ToolTip="Tạo package" CommandParameter="PackageGeneratorPage" Click="navItemToPage_Click">
-                            <telerik:RadNavigationViewItem.Icon>
-                                <telerik:RadGlyph Glyph="&#xe12e;" FontSize="16"/>
-                            </telerik:RadNavigationViewItem.Icon>
-                        </telerik:RadNavigationViewItem>
                         <telerik:RadNavigationViewItem Content="Work Order" ToolTip="Tạo Work Order" CommandParameter="ProductionOrderPage" Click="navItemToPage_Click">
                             <telerik:RadNavigationViewItem.Icon>
                                 <telerik:RadGlyph Glyph="&#xe513;" FontSize="16"/>
+                            </telerik:RadNavigationViewItem.Icon>
+                        </telerik:RadNavigationViewItem>
+                        <telerik:RadNavigationViewItem Content="Package Generator" ToolTip="Tạo package" CommandParameter="PackageGeneratorPage" Click="navItemToPage_Click">
+                            <telerik:RadNavigationViewItem.Icon>
+                                <telerik:RadGlyph Glyph="&#xe12e;" FontSize="16"/>
                             </telerik:RadNavigationViewItem.Icon>
                         </telerik:RadNavigationViewItem>
                         <telerik:RadNavigationViewItem Content="Component Replacement" ToolTip="Thay PCBA" CommandParameter="ComponentReworkPage" Click="navItemToPage_Click">
